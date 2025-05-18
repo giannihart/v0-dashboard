@@ -193,7 +193,7 @@ export default function SettingsPage() {
                 Github
               </TabsTrigger>
               <TabsTrigger value="billing" className="flex-1">
-                Billing
+                Subscription
               </TabsTrigger>
               <TabsTrigger value="api-keys" className="flex-1">
                 API Keys
@@ -651,46 +651,88 @@ export default function SettingsPage() {
                   <CardTitle>Appearance</CardTitle>
                   <CardDescription>Customize how the documentation looks</CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-4">
+                <CardContent className="space-y-6">
                   <div className="space-y-2">
-                    <Label htmlFor="theme">Theme</Label>
-                    <Select defaultValue="dark">
-                      <SelectTrigger id="theme">
-                        <SelectValue placeholder="Select theme" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="light">Light</SelectItem>
-                        <SelectItem value="dark">Dark</SelectItem>
-                        <SelectItem value="system">System</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="font">Font Family</Label>
+                    <Label htmlFor="font">Font</Label>
                     <Select defaultValue="inter">
                       <SelectTrigger id="font">
                         <SelectValue placeholder="Select font" />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="inter">Inter</SelectItem>
-                        <SelectItem value="manrope">Manrope</SelectItem>
+                        <SelectItem value="roboto">Roboto</SelectItem>
+                        <SelectItem value="opensans">Open Sans</SelectItem>
+                        <SelectItem value="lato">Lato</SelectItem>
+                        <SelectItem value="montserrat">Montserrat</SelectItem>
+                        <SelectItem value="poppins">Poppins</SelectItem>
+                        <SelectItem value="sourcesanspro">Source Sans Pro</SelectItem>
+                        <SelectItem value="raleway">Raleway</SelectItem>
+                        <SelectItem value="ubuntu">Ubuntu</SelectItem>
+                        <SelectItem value="merriweather">Merriweather</SelectItem>
+                        <SelectItem value="playfairdisplay">Playfair Display</SelectItem>
+                        <SelectItem value="nunito">Nunito</SelectItem>
                         <SelectItem value="system">System Default</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
+
                   <div className="space-y-2">
-                    <Label htmlFor="font-size">Font Size</Label>
-                    <Select defaultValue="medium">
-                      <SelectTrigger id="font-size">
-                        <SelectValue placeholder="Select size" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="small">Small</SelectItem>
-                        <SelectItem value="medium">Medium</SelectItem>
-                        <SelectItem value="large">Large</SelectItem>
-                      </SelectContent>
-                    </Select>
+                    <Label>Custom Colors</Label>
+                    <div className="grid grid-cols-3 gap-4">
+                      <div className="space-y-1">
+                        <Label htmlFor="primary-color" className="text-xs">
+                          Primary
+                        </Label>
+                        <div className="flex gap-2">
+                          <div className="relative w-10 h-10 overflow-hidden rounded-md border">
+                            <Input
+                              type="color"
+                              id="primary-color"
+                              defaultValue="#3b82f6"
+                              className="absolute inset-0 w-[200%] h-[200%] cursor-pointer opacity-0"
+                            />
+                            <div className="absolute inset-0 bg-[#3b82f6]" />
+                          </div>
+                          <Input defaultValue="#3b82f6" className="flex-1" />
+                        </div>
+                      </div>
+                      <div className="space-y-1">
+                        <Label htmlFor="secondary-color" className="text-xs">
+                          Secondary
+                        </Label>
+                        <div className="flex gap-2">
+                          <div className="relative w-10 h-10 overflow-hidden rounded-md border">
+                            <Input
+                              type="color"
+                              id="secondary-color"
+                              defaultValue="#10b981"
+                              className="absolute inset-0 w-[200%] h-[200%] cursor-pointer opacity-0"
+                            />
+                            <div className="absolute inset-0 bg-[#10b981]" />
+                          </div>
+                          <Input defaultValue="#10b981" className="flex-1" />
+                        </div>
+                      </div>
+                      <div className="space-y-1">
+                        <Label htmlFor="accent-color" className="text-xs">
+                          Accent
+                        </Label>
+                        <div className="flex gap-2">
+                          <div className="relative w-10 h-10 overflow-hidden rounded-md border">
+                            <Input
+                              type="color"
+                              id="accent-color"
+                              defaultValue="#8b5cf6"
+                              className="absolute inset-0 w-[200%] h-[200%] cursor-pointer opacity-0"
+                            />
+                            <div className="absolute inset-0 bg-[#8b5cf6]" />
+                          </div>
+                          <Input defaultValue="#8b5cf6" className="flex-1" />
+                        </div>
+                      </div>
+                    </div>
                   </div>
+
                   <div className="space-y-2">
                     <Label htmlFor="code-theme">Code Block Theme</Label>
                     <Select defaultValue="github-dark">
@@ -700,10 +742,20 @@ export default function SettingsPage() {
                       <SelectContent>
                         <SelectItem value="github-dark">GitHub Dark</SelectItem>
                         <SelectItem value="github-light">GitHub Light</SelectItem>
-                        <SelectItem value="dracula">Dracula</SelectItem>
-                        <SelectItem value="nord">Nord</SelectItem>
                       </SelectContent>
                     </Select>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label>Logo</Label>
+                    <div className="border rounded-md p-4">
+                      <div className="flex flex-col gap-2">
+                        <Input type="file" accept="image/svg+xml,image/png,image/jpeg" />
+                        <p className="text-xs text-muted-foreground">
+                          Upload SVG, PNG or JPG (max. 2MB). Recommended size: 512x512px.
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </CardContent>
                 <CardFooter>

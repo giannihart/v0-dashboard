@@ -140,13 +140,22 @@ function EditableUrlBadge() {
 export function Dashboard() {
   const { teamName } = useContext(TeamNameContext)
   const firstName = "Alex" // User's first name
+
+  // Determine greeting based on time of day
+  const getGreeting = () => {
+    const currentHour = new Date().getHours()
+    return currentHour >= 12 ? "Good evening," : "Good morning,"
+  }
+
   return (
     <div className="flex-1 overflow-auto">
       <div className="flex h-full flex-col">
         <header className="flex flex-col space-y-4 p-6">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-semibold">Good morning, {firstName}</h1>
+              <h1 className="text-2xl font-semibold">
+                {getGreeting()} {firstName}
+              </h1>
               <p className="text-muted-foreground">Welcome back to your documentation portal</p>
             </div>
             <div className="flex items-center gap-3">

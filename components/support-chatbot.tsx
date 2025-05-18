@@ -310,7 +310,7 @@ export default function SupportChatbot({ children, userProfileImage }: SupportCh
                     <Button
                       variant="ghost"
                       size="icon"
-                      className="h-7 w-7 text-destructive hover:text-destructive"
+                      className="h-7 w-7 text-white hover:text-white/80"
                       onClick={handleClose}
                       aria-label="Close chat"
                     >
