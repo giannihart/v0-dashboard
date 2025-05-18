@@ -9,12 +9,14 @@ import { Button } from "@/components/ui/button"
 import { Switch } from "@/components/ui/switch"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Separator } from "@/components/ui/separator"
-import { Copy, Eye, EyeOff, Plus, RefreshCw, Trash2, Users } from "lucide-react"
+import { Copy, Download, Eye, EyeOff, Github, Plus, RefreshCw, Trash2 } from "lucide-react"
 import { ProfileImageUpload } from "@/components/profile-image-upload"
 import { useToast } from "@/components/ui/use-toast"
 import { TeamMembersList } from "@/components/team-members-list"
 import type { TeamMember, TeamMemberRole } from "@/components/team-member-card"
 import { TeamMemberDetail } from "@/components/team-member-detail"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { Badge } from "@/components/ui/badge"
 
 // Sample team members data
 const teamMembers: (TeamMember & {
@@ -187,6 +189,12 @@ export default function SettingsPage() {
               <TabsTrigger value="team" className="flex-1">
                 Team
               </TabsTrigger>
+              <TabsTrigger value="github" className="flex-1">
+                Github
+              </TabsTrigger>
+              <TabsTrigger value="billing" className="flex-1">
+                Billing
+              </TabsTrigger>
               <TabsTrigger value="api-keys" className="flex-1">
                 API Keys
               </TabsTrigger>
@@ -292,10 +300,7 @@ export default function SettingsPage() {
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between">
                   <div>
-                    <CardTitle className="flex items-center gap-2">
-                      <Users className="h-5 w-5" />
-                      Team Members
-                    </CardTitle>
+                    <CardTitle>Team Members</CardTitle>
                     <CardDescription>Manage your team members and their access permissions</CardDescription>
                   </div>
                 </CardHeader>
@@ -309,6 +314,214 @@ export default function SettingsPage() {
                       currentUserRole={currentUserRole}
                     />
                   )}
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            {/* Github Tab */}
+            <TabsContent value="github" className="space-y-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Github Integration</CardTitle>
+                  <CardDescription>Connect your Github account and manage repository access</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="flex items-center justify-between p-4 border rounded-lg">
+                    <div className="flex items-center gap-3">
+                      <Github className="h-8 w-8" />
+                      <div>
+                        <h3 className="font-medium">Github Account</h3>
+                        <p className="text-sm text-muted-foreground">
+                          Connect your Github account to sync documentation
+                        </p>
+                      </div>
+                    </div>
+                    <Button>Connect Account</Button>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="default-branch">Default Branch</Label>
+                    <Select defaultValue="main">
+                      <SelectTrigger id="default-branch">
+                        <SelectValue placeholder="Select branch" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="main">main</SelectItem>
+                        <SelectItem value="master">master</SelectItem>
+                        <SelectItem value="develop">develop</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="auto-sync">Auto-sync Settings</Label>
+                    <div className="flex items-center justify-between">
+                      <div className="space-y-0.5">
+                        <Label className="text-base">Auto-sync on commit</Label>
+                        <p className="text-sm text-muted-foreground">
+                          Automatically sync documentation when changes are committed
+                        </p>
+                      </div>
+                      <Switch defaultChecked />
+                    </div>
+                  </div>
+                </CardContent>
+                <CardFooter>
+                  <Button>Save Github Settings</Button>
+                </CardFooter>
+              </Card>
+            </TabsContent>
+
+            {/* Billing Tab */}
+            <TabsContent value="billing" className="space-y-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Subscription Plan</CardTitle>
+                  <CardDescription>Manage your subscription and billing information</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="rounded-lg border p-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h3 className="font-medium">Current Plan: Pro</h3>
+                        <p className="text-sm text-muted-foreground">$29/month, billed monthly</p>
+                      </div>
+                      <Badge variant="outline" className="bg-green-950/10 text-green-500 border-green-500/20">
+                        Active
+                      </Badge>
+                    </div>
+                    <Separator className="my-4" />
+                    <div className="text-sm">
+                      <div className="flex justify-between mb-2">
+                        <span>Next billing date:</span>
+                        <span className="font-medium">June 15, 2023</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Payment method:</span>
+                        <span className="font-medium">Visa ending in 4242</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label>Plan Options</Label>
+                    <div className="grid gap-4 pt-2">
+                      <div className="flex items-center justify-between rounded-lg border p-4">
+                        <div>
+                          <h3 className="font-medium">Basic</h3>
+                          <p className="text-sm text-muted-foreground">$9/month</p>
+                          <ul className="text-xs text-muted-foreground mt-2 space-y-1">
+                            <li>5 team members</li>
+                            <li>10 projects</li>
+                            <li>5GB storage</li>
+                          </ul>
+                        </div>
+                        <Button variant="outline">Downgrade</Button>
+                      </div>
+                      <div className="flex items-center justify-between rounded-lg border p-4 bg-muted/50">
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <h3 className="font-medium">Pro</h3>
+                            <Badge>Current</Badge>
+                          </div>
+                          <p className="text-sm text-muted-foreground">$29/month</p>
+                          <ul className="text-xs text-muted-foreground mt-2 space-y-1">
+                            <li>Unlimited team members</li>
+                            <li>Unlimited projects</li>
+                            <li>50GB storage</li>
+                            <li>Priority support</li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div className="flex items-center justify-between rounded-lg border p-4">
+                        <div>
+                          <h3 className="font-medium">Enterprise</h3>
+                          <p className="text-sm text-muted-foreground">Custom pricing</p>
+                          <ul className="text-xs text-muted-foreground mt-2 space-y-1">
+                            <li>Unlimited everything</li>
+                            <li>Dedicated support</li>
+                            <li>Custom integrations</li>
+                            <li>SLA guarantees</li>
+                          </ul>
+                        </div>
+                        <Button>Contact Sales</Button>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+                <CardFooter className="flex flex-col items-start space-y-2">
+                  <h4 className="text-sm font-medium">Need help?</h4>
+                  <p className="text-xs text-muted-foreground">
+                    Contact our billing support at billing@team.com or call us at +1 (555) 123-4567.
+                  </p>
+                </CardFooter>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>Billing History</CardTitle>
+                  <CardDescription>View your past invoices and payment history</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="rounded-md border">
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead>Date</TableHead>
+                          <TableHead>Amount</TableHead>
+                          <TableHead>Status</TableHead>
+                          <TableHead className="text-right">Invoice</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        <TableRow>
+                          <TableCell>May 15, 2023</TableCell>
+                          <TableCell>$29.00</TableCell>
+                          <TableCell>
+                            <Badge variant="outline" className="bg-green-950/10 text-green-500 border-green-500/20">
+                              Paid
+                            </Badge>
+                          </TableCell>
+                          <TableCell className="text-right">
+                            <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+                              <span className="sr-only">Download</span>
+                              <Download className="h-4 w-4" />
+                            </Button>
+                          </TableCell>
+                        </TableRow>
+                        <TableRow>
+                          <TableCell>Apr 15, 2023</TableCell>
+                          <TableCell>$29.00</TableCell>
+                          <TableCell>
+                            <Badge variant="outline" className="bg-green-950/10 text-green-500 border-green-500/20">
+                              Paid
+                            </Badge>
+                          </TableCell>
+                          <TableCell className="text-right">
+                            <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+                              <span className="sr-only">Download</span>
+                              <Download className="h-4 w-4" />
+                            </Button>
+                          </TableCell>
+                        </TableRow>
+                        <TableRow>
+                          <TableCell>Mar 15, 2023</TableCell>
+                          <TableCell>$29.00</TableCell>
+                          <TableCell>
+                            <Badge variant="outline" className="bg-green-950/10 text-green-500 border-green-500/20">
+                              Paid
+                            </Badge>
+                          </TableCell>
+                          <TableCell className="text-right">
+                            <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+                              <span className="sr-only">Download</span>
+                              <Download className="h-4 w-4" />
+                            </Button>
+                          </TableCell>
+                        </TableRow>
+                      </TableBody>
+                    </Table>
+                  </div>
                 </CardContent>
               </Card>
             </TabsContent>

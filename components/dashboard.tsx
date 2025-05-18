@@ -6,7 +6,8 @@ import { ExternalLink, CheckCircle, Circle, GitBranch, Github, Clock } from "luc
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { useState, useRef, useEffect } from "react"
+import { useState, useRef, useEffect, useContext } from "react"
+import { TeamNameContext } from "./sidebar"
 
 interface ActivityItem {
   id: string
@@ -137,13 +138,15 @@ function EditableUrlBadge() {
 
 // Update the Dashboard component to ensure it takes the full width
 export function Dashboard() {
+  const { teamName } = useContext(TeamNameContext)
+  const firstName = "Alex" // User's first name
   return (
     <div className="flex-1 overflow-auto">
       <div className="flex h-full flex-col">
         <header className="flex flex-col space-y-4 p-6">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-semibold">Good morning, TEAM</h1>
+              <h1 className="text-2xl font-semibold">Good morning, {firstName}</h1>
               <p className="text-muted-foreground">Welcome back to your documentation portal</p>
             </div>
             <div className="flex items-center gap-3">
