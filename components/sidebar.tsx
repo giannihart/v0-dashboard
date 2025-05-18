@@ -1,0 +1,161 @@
+"use client"
+
+import type React from "react"
+import Link from "next/link"
+import Image from "next/image"
+import { usePathname } from "next/navigation"
+import { FileText, Settings, FileCode, HelpCircle, Moon, LogOut } from "lucide-react"
+import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
+import { InviteMembersDialog } from "@/components/invite-members-dialog"
+import { AvatarGroup } from "@/components/avatar-group"
+import {
+  InfoCard,
+  InfoCardTitle,
+  InfoCardDescription,
+  InfoCardContent,
+  InfoCardMedia,
+  InfoCardFooter,
+  InfoCardAction,
+} from "@/components/ui/info-card"
+
+interface NavItemProps {
+  icon: React.ElementType
+  label: string
+  href: string
+  active?: boolean
+}
+
+function NavItem({ icon: Icon, label, href, active }: NavItemProps) {
+  return (
+    <Link
+      href={href}
+      className={cn(
+        "flex items-center gap-3 rounded-md px-3 py-2 text-sm transition-colors",
+        active ? "bg-muted text-primary" : "text-muted-foreground hover:bg-muted hover:text-primary",
+      )}
+    >
+      <Icon className="h-4 w-4" />
+      <span>{label}</span>
+    </Link>
+  )
+}
+
+export function Sidebar() {
+  const pathname = usePathname()
+
+  // Updated team members data with profile-like images and active status
+  const teamMembers = [
+    {
+      src: "/young-man-headshot.png",
+      alt: "Team Member 1",
+      label: "Alex Johnson",
+      active: true,
+    },
+    {
+      src: "/blonde-woman-glasses-headshot.png",
+      alt: "Team Member 2",
+      label: "Sam Taylor",
+      active: true,
+    },
+    {
+      src: "/profile-image-4.png",
+      alt: "Team Member 3",
+      label: "Jordan Lee",
+    },
+    {
+      src: "/red-hair-headshot.png",
+      alt: "Team Member 4",
+      label: "Casey Morgan",
+    },
+    {
+      src: "/professional-headshot-dark-hair-woman.png",
+      alt: "Team Member 5",
+      label: "Riley Smith",
+      active: true,
+    },
+    {
+      src: "/bearded-man-headshot.png",
+      alt: "Team Member 6",
+      label: "Taylor Wilson",
+    },
+  ]
+
+  return (
+    <div className="flex h-full w-[200px] flex-col bg-black text-white">
+      <div className="flex h-14 items-center border-b border-border/40 px-4">
+        <Link href="/" className="flex items-center">
+          <div className="relative h-6 w-6 mr-2">
+            <Image src="/logo.svg" alt="Logo" fill className="object-contain" priority />
+          </div>
+          <span className="font-semibold">TEAM</span>
+        </Link>
+      </div>
+
+      <div className="flex-1 overflow-auto py-2">
+        <nav className="grid gap-1 px-2">
+          <NavItem icon={FileText} label="Overview" href="/" active={pathname === "/"} />
+          <NavItem icon={FileCode} label="Editor" href="/editor" active={pathname === "/editor"} />
+          <NavItem icon={Settings} label="Settings" href="/settings" active={pathname === "/settings"} />
+        </nav>
+      </div>
+
+      <div className="mt-auto border-t border-border/40 px-2 py-2">
+        <div className="mb-3 px-1">
+          <InfoCard
+            className="bg-black border-border/40 text-white"
+            storageKey="sidebar-info-card"
+            dismissType="forever"
+          >
+            <InfoCardContent>
+              <InfoCardTitle className="text-white">Watch Tutorial</InfoCardTitle>
+              <InfoCardDescription className="text-muted-foreground">
+                Watch this video to help jumpstart your documentation platform.
+              </InfoCardDescription>
+              <InfoCardMedia
+                media={[
+                  {
+                    src: "/abstract-geometric-composition-5.png",
+                    alt: "Collaborative editing feature",
+                  },
+                ]}
+                shrinkHeight={60}
+                expandHeight={120}
+              />
+              <InfoCardFooter className="mt-2 pt-2 border-t border-border/40">
+                <InfoCardAction>
+                  <Button variant="link" className="h-auto p-0 text-xs text-sky-400">
+                    Watch video
+                  </Button>
+                </InfoCardAction>
+              </InfoCardFooter>
+            </InfoCardContent>
+          </InfoCard>
+        </div>
+
+        <nav className="grid gap-1">
+          <NavItem icon={FileText} label="Documentation" href="#" />
+          <InviteMembersDialog />
+          <NavItem icon={HelpCircle} label="Support" href="/support" />
+        </nav>
+
+        <div className="mt-4 flex items-center justify-between px-2 py-2">
+          <div className="flex items-center gap-2">
+            <Button variant="ghost" size="icon" className="h-8 w-8 rounded-full">
+              <Moon className="h-4 w-4" />
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-8 w-8 rounded-full text-white hover:text-white/80 hover:bg-white/10"
+            >
+              <LogOut className="h-4 w-4" />
+              <span className="sr-only">Logout</span>
+            </Button>
+          </div>
+          <AvatarGroup avatars={teamMembers} maxVisible={2} size={32} overlap={10} />
+        </div>
+      </div>
+    </div>
+  )
+}
