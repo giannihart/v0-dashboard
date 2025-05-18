@@ -187,7 +187,7 @@ export function Dashboard() {
                   <div className="relative h-full w-full rounded-md overflow-hidden border border-border/50">
                     <div className="p-2">
                       <div className="w-full aspect-video bg-muted/30 rounded-md mb-3 flex items-center justify-center">
-                        <span className="text-xs text-muted-foreground">Documentation Hero</span>
+                        <span className="text-xs text-muted-foreground">Documentation Preview</span>
                       </div>
                     </div>
                   </div>
